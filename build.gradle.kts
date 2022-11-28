@@ -23,6 +23,7 @@ dependencies {
 
     testImplementation("org.assertj:assertj-core:${versions["assertj"]}")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${versions["junit"]}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${versions["junit"]}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${versions["junit"]}")
 }
 
