@@ -9,9 +9,19 @@ repositories {
     mavenCentral()
 }
 
+val versions = mapOf(
+    "assertj" to "3.23.1",
+    "jackson" to "2.14.0",
+    "junit" to "5.9.0",
+)
+
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:${versions["jackson"]}")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${versions["jackson"]}")
+
+    testImplementation("org.assertj:assertj-core:${versions["assertj"]}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${versions["junit"]}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${versions["junit"]}")
 }
 
 tasks.getByName<Test>("test") {
