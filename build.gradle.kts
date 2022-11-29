@@ -1,4 +1,5 @@
 plugins {
+    id("com.github.johnrengelman.shadow").version("7.1.2")
     id("java")
 }
 
@@ -29,4 +30,8 @@ dependencies {
 
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
+}
+
+tasks.jar {
+    manifest.attributes["Main-Class"] = "net.serrago.ntc.TrapTypeFilter"
 }
