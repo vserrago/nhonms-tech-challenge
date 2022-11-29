@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -26,7 +27,13 @@ interface PrefixFilterTest {
     static Stream<Arguments> expectedMatches() {
         return Stream.of(
                 arguments(BASIC_FILTER_PREFIXES, ".1.3.6.1.4.1.9.9.117.2.0.1"),
-                arguments(BASIC_FILTER_PREFIXES, ".1.3.6.1.4.1.9.9.117.2")
+                arguments(BASIC_FILTER_PREFIXES, ".1.3.6.1.4.1.9.9.117.2"),
+                arguments(List.of(""), ".1.3.6.1.4.1.9.9.117.2"),
+                arguments(List.of(""), ""),
+                arguments(List.of(""), null),
+                arguments(Collections.singletonList(null), ".1.3.6.1.4.1.9.9.117.2"),
+                arguments(Collections.singletonList(null), ""),
+                arguments(Collections.singletonList(null), null)
         );
     }
 
@@ -44,7 +51,15 @@ interface PrefixFilterTest {
     static Stream<Arguments> expectedMisses() {
         return Stream.of(
                 arguments(BASIC_FILTER_PREFIXES, ".1.3.6.1.4.1.9.9.118.2.0.1"),
-                arguments(BASIC_FILTER_PREFIXES, ".1.3.6.1.4.1.9.9.117")
+                arguments(BASIC_FILTER_PREFIXES, ".1.3.6.1.4.1.9.9.117"),
+                arguments(BASIC_FILTER_PREFIXES, null),
+                arguments(BASIC_FILTER_PREFIXES, ""),
+                arguments(Collections.emptyList(), ".1.3.6.1.4.1.9.9.117.2"),
+                arguments(Collections.emptyList(), ""),
+                arguments(Collections.emptyList(), null),
+                arguments(null, ".1.3.6.1.4.1.9.9.117.2"),
+                arguments(null, ""),
+                arguments(null, null)
         );
     }
 

@@ -5,7 +5,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * An implementation of {@link PrefixFilter} that naively iterates over each prefix to determine a match.
+ * An implementation of {@link PrefixFilter} that naively iterates over each prefix to determine a match. When matching
+ * against a filterset, the complexity of the match is O(n^2), as it will iterate over each individual character in each
+ * individual prefix to determine whether the input is matched.
  */
 public class SimplePrefixFilter implements PrefixFilter {
 
@@ -18,18 +20,19 @@ public class SimplePrefixFilter implements PrefixFilter {
     @Override
     public void initialize(Collection<String> prefixes) {
         // Adding all the prefixes to the set ensures that the given collection is de-duplicated.
-        this.prefixes.addAll(prefixes);
+        if (prefixes != null) {
+            prefixes.stream()
+                    .map(s -> s == null ? "" : s)
+                    .forEach(this.prefixes::add);
+        }
     }
 
     @Override
     public boolean matches(String input) {
-        // If null or empty, return false
-        if (input == null || input.isBlank()) {
-            return false;
-            //TODO: May not be necessary
-        } else if (prefixes.isEmpty()) {
-            return true;
+        if (input == null) {
+            input = "";
         }
+
         return prefixes.stream().anyMatch(input::startsWith);
     }
 }
