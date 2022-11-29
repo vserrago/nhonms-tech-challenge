@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
-// TODO: tests, javadoc, maybe cleanup interface
+// TODO: tests, javadoc, cleanup interface
 public class ConfigurationParser {
 
     private static final List<String> DEFAULT_CONFIG_FILE_NAMES = List.of("snmp.yml", "snmp.yaml");
@@ -20,16 +20,12 @@ public class ConfigurationParser {
     private final YAMLMapper mapper;
 
     public ConfigurationParser() {
-        this(FileSystems.getDefault());
+        this(FileSystems.getDefault(), new YAMLMapper());
     }
 
-    public ConfigurationParser(FileSystem fileSystem) {
+    public ConfigurationParser(FileSystem fileSystem, YAMLMapper mapper) {
         this.fileSystem = fileSystem;
-        this.mapper = new YAMLMapper();
-    }
-
-    public Configuration parse() {
-        return parse(DEFAULT_CONFIG_FILE_NAMES);
+        this.mapper = mapper;
     }
 
     public Configuration parse(String configFilePath) {
