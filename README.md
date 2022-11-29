@@ -57,6 +57,12 @@ While I would love to do all the things I can think of, sometimes a line has to 
 declared. If I were to spend more time developing this challenge, here are some items I would
 pursue:
 
+- Increase test coverage, particularly in `TrapTypeFilter` and `ConfigurationParser`.
+  `TrapTypeFilter` should be testable by ensuring the input and output streams are injected as
+  dependencies. The `ConfigurationParser` can be unit tested either with mocking or
+  [jimfs](https://google.github.io/jimfs/).
+- Add a performance test suite & gradle task to measure execution performance across filter
+  implementations.
 - The [picocli documentation outlines](https://picocli.info/#_graalvm_native_image) how to build a
   native standalone executable. "Everything included" executables are all the rage these days,
   because of the ease of installation and use. A natively-executed java application would be no
