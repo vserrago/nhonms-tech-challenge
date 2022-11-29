@@ -10,8 +10,14 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
 
+import static picocli.CommandLine.Command;
 import static picocli.CommandLine.Option;
 
+@Command(
+        name = "trapTypeFilter",
+        footer = "Copyright(c) Valentin Serrago, 2022",
+        description = "Filter OIDs against pre-specified prefixes"
+)
 public class TrapTypeFilter implements Callable<Integer> {
 
     @Option(
@@ -26,6 +32,13 @@ public class TrapTypeFilter implements Callable<Integer> {
             defaultValue = "trie"
     )
     FilterAlgorithm filterAlgorithm;
+
+    @Option(
+            names = {"-h", "--help"},
+            usageHelp = true,
+            description = "Display this help and exit"
+    )
+    boolean help;
 
     public static void main(String[] args) {
         int exitCode = new CommandLine(new TrapTypeFilter())
