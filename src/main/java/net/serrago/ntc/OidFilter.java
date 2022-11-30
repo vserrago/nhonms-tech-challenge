@@ -28,7 +28,8 @@ public class OidFilter implements Callable<Integer> {
 
     @Option(
             names = {"-f", "--filter-algorithm"},
-            description = "Which filter algorithm to use",
+            description = "Which algorithm to use.\nOne of: ${COMPLETION-CANDIDATES}",
+            completionCandidates = FilterAlgorithm.AlgorithmLabels.class,
             defaultValue = "trie"
     )
     FilterAlgorithm filterAlgorithm;

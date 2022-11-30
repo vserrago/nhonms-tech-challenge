@@ -1,6 +1,7 @@
 package net.serrago.ntc.filter;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * An enum representing what filter algorithms are available to be filtered by.
@@ -34,5 +35,18 @@ public enum FilterAlgorithm {
 
     public String getLabel() {
         return label;
+    }
+
+    /**
+     * An iterator for the values of {@link FilterAlgorithm#getLabel()}.
+     */
+    public static class AlgorithmLabels implements Iterable<String> {
+
+        @Override
+        public Iterator<String> iterator() {
+            return Arrays.stream(FilterAlgorithm.values())
+                    .map(FilterAlgorithm::getLabel)
+                    .iterator();
+        }
     }
 }
