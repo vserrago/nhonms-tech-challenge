@@ -14,11 +14,11 @@ import static picocli.CommandLine.Command;
 import static picocli.CommandLine.Option;
 
 @Command(
-        name = "trapTypeFilter",
+        name = "oidFilter",
         footer = "Copyright(c) Valentin Serrago, 2022",
-        description = "Filter OIDs against pre-specified prefixes"
+        description = "Filter trap type OIDs against pre-specified prefixes"
 )
-public class TrapTypeFilter implements Callable<Integer> {
+public class OidFilter implements Callable<Integer> {
 
     @Option(
             names = {"-c", "--config-path"},
@@ -41,7 +41,7 @@ public class TrapTypeFilter implements Callable<Integer> {
     boolean help;
 
     public static void main(String[] args) {
-        int exitCode = new CommandLine(new TrapTypeFilter())
+        int exitCode = new CommandLine(new OidFilter())
                 .registerConverter(FilterAlgorithm.class, FilterAlgorithm::fromLabel)
                 .execute(args);
         System.exit(exitCode);

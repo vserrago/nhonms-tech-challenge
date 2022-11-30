@@ -57,8 +57,8 @@ While I would love to do all the things I can think of, sometimes a line has to 
 declared. If I were to spend more time developing this challenge, here are some items I would
 pursue:
 
-- Increase test coverage, particularly in `TrapTypeFilter` and `ConfigurationParser`.
-  `TrapTypeFilter` should be testable by ensuring the input and output streams are injected as
+- Increase test coverage, particularly in `OidFilter` and `ConfigurationParser`.
+  `OidFilter` should be testable by ensuring the input and output streams are injected as
   dependencies. The `ConfigurationParser` can be unit tested either with mocking or
   [jimfs](https://google.github.io/jimfs/).
 - Add a performance test suite & gradle task to measure execution performance across filter

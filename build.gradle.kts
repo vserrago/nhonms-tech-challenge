@@ -36,5 +36,5 @@ tasks.getByName<Test>("test") {
 }
 
 tasks.jar {
-    manifest.attributes["Main-Class"] = "net.serrago.ntc.TrapTypeFilter"
+    manifest.attributes["Main-Class"] = "net.serrago.ntc.OidFilter"
 }
