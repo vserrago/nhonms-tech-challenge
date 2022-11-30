@@ -7,11 +7,12 @@ import net.serrago.ntc.filter.PrefixFilter;
 import picocli.CommandLine;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.concurrent.Callable;
 
-import static picocli.CommandLine.Command;
-import static picocli.CommandLine.Option;
+import static picocli.CommandLine.*;
+import static picocli.CommandLine.Model.CommandSpec;
 
 @Command(
         name = "oidFilter",
@@ -19,6 +20,10 @@ import static picocli.CommandLine.Option;
         description = "Filter trap type OIDs against pre-specified prefixes"
 )
 public class OidFilter implements Callable<Integer> {
+
+    //Variables injected via Picocli
+    @Spec
+    CommandSpec spec;
 
     @Option(
             names = {"-c", "--config-path"},
@@ -41,6 +46,25 @@ public class OidFilter implements Callable<Integer> {
     )
     boolean help;
 
+    // Variables assigned at instantiation
+    private final ConfigurationParser configurationParser;
+    private final FilterSelector filterSelector;
+    private final InputStream in;
+
+    public OidFilter() {
+        this(new ConfigurationParser(), new FilterSelector(), System.in);
+    }
+
+    public OidFilter(
+            ConfigurationParser configurationParser,
+            FilterSelector filterSelector,
+            InputStream in
+    ) {
+        this.configurationParser = configurationParser;
+        this.filterSelector = filterSelector;
+        this.in = in;
+    }
+
     public static void main(String[] args) {
         int exitCode = new CommandLine(new OidFilter())
                 .registerConverter(FilterAlgorithm.class, FilterAlgorithm::fromLabel)
@@ -50,18 +74,18 @@ public class OidFilter implements Callable<Integer> {
 
     @Override
     public Integer call() {
-        var configuration = new ConfigurationParser().parse(configPath);
-        PrefixFilter filter = new FilterSelector().select(filterAlgorithm);
+        var configuration = configurationParser.parse(configPath);
+        PrefixFilter filter = filterSelector.select(filterAlgorithm);
         filter.initialize(configuration.prefixes());
 
-        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader stdin = new BufferedReader(new InputStreamReader(in));
 
         stdin.lines()
                 .map(oid -> {
                     boolean match = filter.matches(oid);
                     return String.format("%s: %b", oid, match);
                 })
-                .forEach(System.out::println);
+                .forEach(spec.commandLine().getOut()::println);
         return 0;
     }
 }
