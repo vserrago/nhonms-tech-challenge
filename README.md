@@ -2,6 +2,12 @@
 
 This is my submission for the tech challenge. It is a gradle-based Java 17 application.
 
+My approach to this challenge was to be more holistic than the base challenge description. While the
+knowledge of algorithms and efficiency is important, I find in my day-to-day, it is also important
+to be able to design, decompose, encapsulate, and test written code. While not 100% perfect or
+complete (see [Where to go from here](#where-to-go-from-here)), I think it gives an
+approximation of the kind of code I'd be able to write.
+
 # Requirements
 
 The application is relatively simple, and requirements are few. They are:
@@ -70,10 +76,8 @@ While I would love to do all the things I can think of, sometimes a line has to 
 declared. If I were to spend more time developing this challenge, here are some items I would
 pursue:
 
-- Increase test coverage, particularly in `OidFilter` and `ConfigurationParser`.
-  `OidFilter` should be testable by ensuring the input and output streams are injected as
-  dependencies. The `ConfigurationParser` can be unit tested either with mocking or
-  [jimfs](https://google.github.io/jimfs/).
+- Increase test coverage, particularly in `OidFilter`. `OidFilter` should be testable by ensuring
+  the input and output streams are injected as dependencies.
 - Add a performance test suite & gradle task to measure execution performance across filter
   implementations.
 - The [picocli documentation outlines](https://picocli.info/#_graalvm_native_image) how to build a
@@ -83,3 +87,6 @@ pursue:
 - Setting up [autocompletion](https://picocli.info/autocomplete.html).
 - Generating [manpage documentation](https://picocli.info/#_generate_man_page_documentation).
 - A CI pipeline that can build, execute tests, and tag/publish the artifact to a release page.
+- A DI framework like Spring or Guice could be nice to have, especially if the project were to
+  expand past the handful of classes currently into a sprawling nested-command structure with tens
+  of dependent classes or more. However, it is not as necessary as-is.
