@@ -14,7 +14,7 @@ import java.util.Optional;
 // TODO: tests, javadoc, cleanup interface
 public class ConfigurationParser {
 
-    private static final List<String> DEFAULT_CONFIG_FILE_NAMES = List.of("snmp.yml", "snmp.yaml");
+    static final List<String> DEFAULT_CONFIG_FILE_NAMES = List.of("snmp.yml", "snmp.yaml");
 
     private final FileSystem fileSystem;
     private final YAMLMapper mapper;
@@ -30,7 +30,7 @@ public class ConfigurationParser {
 
     public Configuration parse(String configFilePath) {
         return configFilePath != null && !configFilePath.isBlank()
-                ? parse(configFilePath)
+                ? parse(List.of(configFilePath))
                 : parse(DEFAULT_CONFIG_FILE_NAMES);
     }
 
@@ -48,12 +48,14 @@ public class ConfigurationParser {
         if (!Files.isRegularFile(path)) {
             return Optional.empty();
         }
+
+        Configuration configuration;
         try {
             String content = Files.readString(path, StandardCharsets.UTF_8);
-            var configuration = mapper.readValue(content, Configuration.class);
-            return Optional.of(configuration);
+            configuration = mapper.readValue(content, Configuration.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return Optional.of(configuration);
     }
 }

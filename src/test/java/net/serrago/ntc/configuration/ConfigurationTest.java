@@ -1,8 +1,7 @@
-package net.serrago.ntc;
+package net.serrago.ntc.configuration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
-import net.serrago.ntc.configuration.Configuration;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
