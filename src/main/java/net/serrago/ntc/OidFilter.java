@@ -27,13 +27,17 @@ public class OidFilter implements Callable<Integer> {
 
     @Option(
             names = {"-c", "--config-path"},
-            description = "Path to config file"
+            description = """
+                    Path to config file.
+                    Defaults to "snmp.yml", or "snmp.yaml", in that order."""
     )
     String configPath;
 
     @Option(
             names = {"-f", "--filter-algorithm"},
-            description = "Which algorithm to use.\nOne of: ${COMPLETION-CANDIDATES}",
+            description = """
+                    Which algorithm to use.
+                    One of: ${COMPLETION-CANDIDATES}""",
             completionCandidates = FilterAlgorithm.AlgorithmLabels.class,
             defaultValue = "trie"
     )

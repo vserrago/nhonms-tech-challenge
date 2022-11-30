@@ -46,7 +46,8 @@ class OidFilterTest {
                     Usage: oidFilter [-h] [-c=<configPath>] [-f=<filterAlgorithm>]
                     Filter trap type OIDs against pre-specified prefixes
                       -c, --config-path=<configPath>
-                                   Path to config file
+                                   Path to config file.
+                                   Defaults to "snmp.yml", or "snmp.yaml", in that order.
                       -f, --filter-algorithm=<filterAlgorithm>
                                    Which algorithm to use.
                                    One of: no-op, simple, trie
