@@ -12,7 +12,7 @@ The application is relatively simple, and requirements are few. They are:
 # Compilation, Testing, and Building
 
 ```bash
-# Preamble
+# Required to compile, test or build
 export JAVA_HOME="/path/to/jdk17"
 cd path/to/nhonms-tech-challenge
 
@@ -35,21 +35,34 @@ fat jar, meaning that all dependencies are included with it.
 # Running the application
 
 The following assumes that the jar has been built and left in
-`build/libs/nhonms-tech-challenge-0.1.0-SNAPSHOT-all.jar`. However, it can be moved out and
-referenced from its new location.
+`build/libs/nhonms-tech-challenge-0.1.0-SNAPSHOT-all.jar`. However, it can be moved and referenced
+from its new location.
+
+In addition, a wrapper shell script, `oidFilter.sh`, can be executed from the project root to
+simplify command execution.
+
+For more details on usage, use the `-h` or `--help` options.
 
 ```bash
+# Required to run the command
 export JAVA_HOME="/path/to/jdk17"
 cd path/to/nhonms-tech-challenge
 
+# Redirect a text file into stdin
 $JAVA_HOME/bin/java -jar build/libs/nhonms-tech-challenge-0.1.0-SNAPSHOT-all.jar <path/to/my-oids.txt
+# Pipe the contents of another command into stdin 
 echo ".1.3.6.1.4.1.9.9.117" | $JAVA_HOME/bin/java -jar build/libs/nhonms-tech-challenge-0.1.0-SNAPSHOT-all.jar
-
 # Using a custom config path 
 $JAVA_HOME/bin/java -jar build/libs/nhonms-tech-challenge-0.1.0-SNAPSHOT-all.jar -c path/to/snmp.yaml <path/to/my-oids.txt
-```
+# Seeing usage
+$JAVA_HOME/bin/java -jar build/libs/nhonms-tech-challenge-0.1.0-SNAPSHOT-all.jar --help
 
-For more details on usage, use the `-h` or `--help` options.
+# The previous examples, using the wrapper script
+./oidFilter.sh <path/to/my-oids.txt
+echo ".1.3.6.1.4.1.9.9.117" | ./oidFilter.sh
+./oidFilter.sh -c path/to/snmp.yaml <path/to/my-oids.txt
+./oidFilter.sh --help
+```
 
 # Where to go from here
 
