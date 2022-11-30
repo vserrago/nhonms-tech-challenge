@@ -40,6 +40,11 @@ public class TrieNode {
         }
 
         int childIndex = childIndexOf(value.charAt(index));
+        if (childIndex < 0 || childIndex > children.length) {
+            throw new IllegalArgumentException(String.format(
+                    "Illegal character '%c' in trie", value.charAt(index)
+            ));
+        }
 
         if (children[childIndex] == null) {
             children[childIndex] = new TrieNode();
@@ -49,12 +54,12 @@ public class TrieNode {
 
     /**
      * Checks the given value against the trie. If the value is prefixed by a value in this trie, then the trie is
-     * considered to contain this value.
+     * considered to contain this value. If the value contains a character not allowed in this trie, then trie is
+     * considered not to contain this value.
      *
-     * @param value The value to insert. Must be null, empty, or a string consisting of only the 0,1,2,3,4,5,6,7,8,9,
+     * @param value The value to insert. Should be null, empty, or a string consisting of only the 0,1,2,3,4,5,6,7,8,9,
      * and '.' characters.
      * @return Whether the given value has a prefix matching in this trie.
-     * @throws IllegalArgumentException If a string with illegal characters is used as a parameter.
      */
     public boolean contains(String value) {
         if (value == null || value.isEmpty()) {
@@ -69,6 +74,9 @@ public class TrieNode {
         }
 
         int childIndex = childIndexOf(value.charAt(index));
+        if (childIndex < 0 || childIndex > children.length) {
+            return false;
+        }
 
         if (children[childIndex] == null) {
             return end;
@@ -80,15 +88,8 @@ public class TrieNode {
     private int childIndexOf(char c) {
         int charValue = c - '0';
 
-        int childIndex = charValue == DOT_CHAR_VALUE
+        return charValue == DOT_CHAR_VALUE
                 ? DOT_CHAR_CHILD_INDEX
                 : charValue;
-        if (childIndex < 0 || childIndex > children.length) {
-            throw new IllegalArgumentException(String.format(
-                    "Illegal character '%c' in trie", c
-            ));
-        }
-
-        return childIndex;
     }
 }

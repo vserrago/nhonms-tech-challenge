@@ -84,10 +84,10 @@ class TrieNodeTest {
             "    ",
             "?"
     })
-    void givenIllegalContainsParameter_expectIllegalArgumentException(String illegalContainsValue) {
+    void givenIllegalContainsParameter_expectFalse(String illegalContainsValue) {
         var trieNode = new TrieNode();
         trieNode.insert("1.1.1.1.1.1.1.1.1.1.1.1.1.1");
-        assertThatThrownBy(() -> trieNode.contains(illegalContainsValue))
-                .isInstanceOf(IllegalArgumentException.class);
+        assertThat(trieNode.contains(illegalContainsValue))
+                .isFalse();
     }
 }
