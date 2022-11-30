@@ -11,6 +11,10 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+/**
+ * This interface acts as a test template for all implementations of {@link PrefixFilter}. When implemented by a test
+ * class, this template will be executed against the instance provided by {@link PrefixFilterTest#getInstance()}.
+ */
 interface PrefixFilterTest {
 
     List<String> BASIC_FILTER_PREFIXES = List.of(
